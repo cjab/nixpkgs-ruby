@@ -13,7 +13,6 @@
 , groff
 , libyaml
 , libffi
-, autoreconfHook
 , bison
 , autoconf
 , darwin ? null
@@ -67,7 +66,6 @@ let
          , yamlSupport ? true
          , libffi
          , fiddleSupport ? true
-         , autoreconfHook
          , bison
          , autoconf
          , darwin ? null
@@ -85,7 +83,7 @@ let
             # Have `configure' avoid `/usr/bin/nroff' in non-chroot builds.
             NROFF = if docSupport then "${groff}/bin/nroff" else null;
 
-            nativeBuildInputs = [ autoreconfHook bison ]
+            nativeBuildInputs = [ autoconf bison ]
               ++ ops (stdenv.buildPlatform != stdenv.hostPlatform)
               [ buildPackages.ruby ];
             buildInputs = (op fiddleSupport libffi)
